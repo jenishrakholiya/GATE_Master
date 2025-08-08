@@ -1,0 +1,19 @@
+# File: .gitignore (in the root gate-master folder)
+
+# Environment variables
+.env
+backend/.env
+frontend/.env
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Django
+db.sqlite3
+
+# Node
+node_modules/
+build/
+.npm
