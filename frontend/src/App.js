@@ -3,6 +3,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import './App.css';
 import Layout from './components/Layout'; 
 import ProtectedRoute from './components/ProtectedRoute';
@@ -13,9 +14,16 @@ import EmailVerificationPage from './pages/EmailVerificationPage';
 import DashboardPage from './pages/DashboardPage';
 import PracticeZonePage from './pages/PracticeZonePage';
 import QuizPage from './pages/QuizPage';
+import ChallengeListPage from './pages/ChallengeListPage';
+import ChallengeAttemptPage from './pages/ChallengeAttemptPage';
+import ChallengeResultPage from './pages/ChallengeResultPage';
+import InformationZonePage from './pages/InformationZonePage';
+import LeaderboardPage from './pages/LeaderboardPage';
+
 
 function App() {
   return (
+    <ThemeProvider>
     <Router>
       <AuthProvider>
         <Routes>
@@ -25,6 +33,11 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/verify/:uidb64/:token" element={<EmailVerificationPage />} />
             <Route path="/" element={<LandingPage />} />
+            <Route path="/challenges" element={<ChallengeListPage />} />
+            <Route path="/challenge/attempt/:attemptId" element={<ChallengeAttemptPage />} />
+            <Route path="/challenge/result/:attemptId" element={<ChallengeResultPage />} />
+            <Route path="/leaderboard" element={<LeaderboardPage />} />
+            <Route path="/information" element={<InformationZonePage />} />
 
             {/* Private/Protected Routes */}
             <Route element={<ProtectedRoute />}>
@@ -39,6 +52,7 @@ function App() {
         </Routes>
       </AuthProvider>
     </Router>
+    </ThemeProvider>
   );
 }
 

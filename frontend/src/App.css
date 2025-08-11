@@ -1,7 +1,120 @@
+/* File: frontend/src/App.css */
+
+/* Add Google Font Import at the very top */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* --- ☀️ Light Mode Theme Variables (Default) --- */
+:root {
+  /* Primary Action Color */
+  --bs-primary: #3B82F6;
+  --bs-primary-rgb: 59, 130, 246;
+  
+  /* Accent Colors */
+  --bs-success: #10B981;
+  --bs-success-rgb: 16, 185, 129;
+  --bs-danger: #EF4444;
+  --bs-danger-rgb: 239, 68, 68;
+  --bs-warning: #F59E0B;
+  --bs-warning-rgb: 245, 158, 11;
+  --bs-info: #3B82F6; /* Use primary for info */
+
+  /* Neutral & Text Colors */
+  --bs-body-bg: #F8F9FA;
+  --bs-body-color: #1F2937;
+  --bs-secondary-color: #6B7280;
+  --bs-light: #F8F9FA;
+  --bs-light-rgb: 248, 249, 250;
+  
+  /* Surface & Border Colors */
+  --bs-card-bg: #FFFFFF;
+  --bs-card-cap-bg: #FFFFFF;
+  --bs-list-group-bg: #FFFFFF;
+  --bs-modal-content-bg: #FFFFFF;
+  --bs-card-border-color: rgba(0, 0, 0, 0.08);
+
+  /* Custom Contextual Colors for Quiz */
+  --gate-correct: #10B981;
+  --gate-wrong: #EF4444;
+
+  /* Global Styles */
+  --bs-font-sans-serif: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  --bs-border-radius: 0.375rem;
+  --bs-card-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.07);
+}
+
+
+/* --- 🌙 Dark Mode Theme Variables --- */
+[data-bs-theme="dark"] {
+  /* Primary Action Color */
+  --bs-primary: #60A5FA;
+  --bs-primary-rgb: 96, 165, 250;
+
+  /* Accent Colors */
+  --bs-success: #34D399;
+  --bs-danger: #F87171;
+  --bs-warning: #FBBF24;
+  --bs-info: #60A5FA;
+
+  /* Neutral & Text Colors */
+  --bs-body-bg: #111827;
+  --bs-body-color: #F3F4F6;
+  --bs-secondary-color: #9CA3AF;
+  --bs-light: #1F2937;
+  --bs-light-rgb: 31, 41, 55;
+
+  /* Surface & Border Colors */
+  --bs-card-bg: #1F2937;
+  --bs-card-cap-bg: #374151;
+  --bs-list-group-bg: #1F2937;
+  --bs-modal-content-bg: #1F2937;
+  --bs-card-border-color: rgba(255, 255, 255, 0.1);
+  --bs-table-striped-bg: #2c3542;
+  --bs-table-bg: var(--bs-card-bg);
+  --bs-table-border-color: var(--bs-card-border-color);
+
+  /* Custom Contextual Colors for Quiz */
+  --gate-correct: #34D399;
+  --gate-wrong: #F87171;
+}
+
+/* --- Global Styles & Overrides --- */
+body {
+  background-color: var(--bs-body-bg);
+  font-family: var(--bs-font-sans-serif);
+}
+
 .auth-card {
   max-width: 500px;
   padding: 2rem;
   border: none;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-  border-radius: 0.5rem;
+  box-shadow: var(--bs-card-shadow);
+  border-radius: var(--bs-border-radius);
+  background-color: var(--bs-card-bg);
+}
+
+.card {
+  border: none;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
+}
+
+[data-bs-theme="dark"] .card {
+    box-shadow: none; /* Dark themes often look better with no shadow */
+}
+
+.card-hover {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--bs-card-shadow);
+}
+
+.text-correct { color: var(--gate-correct); font-weight: 500; }
+.border-correct { border: 1px solid var(--gate-correct) !important; }
+.text-wrong { color: var(--gate-wrong); font-weight: 500; }
+.border-wrong { border: 1px solid var(--gate-wrong) !important; }
+
+/* ... (other specific styles) ... */
+[data-bs-theme="dark"] .bg-light {
+    background-color: var(--bs-light) !important;
 }

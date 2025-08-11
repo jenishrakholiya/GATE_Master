@@ -1,33 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Card, Button, Spinner, Alert, Form, Badge, ProgressBar, Modal } from 'react-bootstrap';
-import { Lightbulb } from 'react-bootstrap-icons';
+import { Container, Card, Button, Spinner, Alert, Form, Badge, ProgressBar, Modal, Row, Col, ListGroup, Accordion } from 'react-bootstrap';
+import { Lightbulb, CheckCircleFill, XCircleFill, LightbulbFill } from 'react-bootstrap-icons';
 import axiosInstance from '../utils/axiosInstance';
+import Timer from '../components/Timer';
 
-// Timer component
-const Timer = ({ seconds, onTimeUp }) => {
-    const [timeLeft, setTimeLeft] = useState(seconds);
+// Import Chart.js components
+import { Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
-    useEffect(() => {
-        if (timeLeft <= 0) {
-            onTimeUp();
-            return;
-        }
-        const intervalId = setInterval(() => {
-            setTimeLeft(timeLeft - 1);
-        }, 1000);
-        return () => clearInterval(intervalId);
-    }, [timeLeft, onTimeUp]);
-
-    const minutes = Math.floor(timeLeft / 60);
-    const secs = timeLeft % 60;
-
-    return (
-        <Badge bg={timeLeft < 60 ? "danger" : "info"} pill className="ms-2" style={{ fontSize: '1rem' }}>
-            {minutes.toString().padStart(2, '0')}:{secs.toString().padStart(2, '0')}
-        </Badge>
-    );
-};
+// Register Chart.js components needed for the Doughnut chart
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 // Main Quiz Page Component
 const QuizPage = () => {
@@ -37,14 +20,13 @@ const QuizPage = () => {
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState({});
-    const [quizState, setQuizState] = useState('loading'); // loading, ongoing, submitting, submitted, error
+    const [quizState, setQuizState] = useState('loading');
     const [results, setResults] = useState(null);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     
-    // State for "Show Answer" feature
     const [revealedAnswers, setRevealedAnswers] = useState(new Set());
+    const [fetchedAnswers, setFetchedAnswers] = useState({}); 
     const [showAnswerModal, setShowAnswerModal] = useState(false);
-    const [revealedData, setRevealedData] = useState(null);
 
     useEffect(() => {
         const fetchQuiz = async () => {
@@ -61,12 +43,18 @@ const QuizPage = () => {
     
     const handleRevealAnswer = async () => {
         const questionId = questions[currentQuestionIndex].id;
-        try {
-            const response = await axiosInstance.get(`/practice/question/${questionId}/answer/`);
-            setRevealedData(response.data);
-            setRevealedAnswers(prev => new Set(prev).add(questionId));
+        if (fetchedAnswers[questionId]) {
             setShowAnswerModal(true);
-        } catch (err) { alert("Could not fetch the answer."); }
+        } else {
+            try {
+                const response = await axiosInstance.get(`/practice/question/${questionId}/answer/`);
+                setFetchedAnswers(prev => ({ ...prev, [questionId]: response.data }));
+                setRevealedAnswers(prev => new Set(prev).add(questionId));
+                setShowAnswerModal(true);
+            } catch (err) {
+                alert("Could not fetch the answer. Please try again.");
+            }
+        }
     };
 
     const handleSubmit = useCallback(async () => {
@@ -134,42 +122,88 @@ const QuizPage = () => {
     if (quizState === 'submitted' && results) {
         const revealedCount = results.detailed_results.filter(r => r.was_revealed).length;
         const attemptedQuestions = results.total_questions - revealedCount;
+        const incorrectCount = attemptedQuestions - results.correct_count;
+        const accuracy = results.total_marks > 0 ? Math.round((results.score / results.total_marks) * 100) : 0;
+        
+        const doughnutData = {
+            labels: ['Correct', 'Incorrect'],
+            datasets: [{
+                data: [results.correct_count, incorrectCount],
+                backgroundColor: ['#10B981', '#EF4444'],
+                borderColor: ['var(--bs-card-bg)', 'var(--bs-card-bg)'],
+                borderWidth: 2,
+            }],
+        };
+
+        const doughnutOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: true, position: 'bottom', labels: { color: 'var(--bs-body-color)' } },
+                title: { display: true, text: 'Question Breakdown', font: { size: 16 }, color: 'var(--bs-body-color)' },
+            },
+            cutout: '60%',
+        };
 
         return (
             <Container className="mt-4">
-                <Card className="text-center shadow-sm mb-4">
-                    <Card.Header>Quiz Complete!</Card.Header>
+                <Card className="shadow-sm mb-4">
+                    <Card.Header as="h4" className="text-center">Quiz Report</Card.Header>
                     <Card.Body>
-                        <Card.Title>Quiz Results</Card.Title>
-                        {/* Display the score */}
-                        <h1>{results.score} / {results.total_marks}</h1>
-                        {/* NEW: Display the correct question count */}
-                        <p className="lead">
-                            You answered <strong>{results.correct_count}</strong> out of <strong>{attemptedQuestions}</strong> scored questions correctly.
-                        </p>
-                        {revealedCount > 0 && 
-                            <p className="text-muted">({revealedCount} question(s) were revealed and not scored.)</p>
-                        }
-                        <Button variant="primary" onClick={() => navigate('/practice')}>Back to Practice Zone</Button>
+                        <Row className="align-items-center">
+                            <Col md={4} style={{ height: '250px' }}>
+                                <Doughnut data={doughnutData} options={doughnutOptions} />
+                            </Col>
+                            <Col md={8}>
+                                <h2 className="text-center">Final Score: {results.score} / {results.total_marks}</h2>
+                                <ListGroup variant="flush" className="mt-3">
+                                    {/* --- UPDATED STATS BREAKDOWN --- */}
+                                    <ListGroup.Item className="d-flex justify-content-between">
+                                        <strong>Marks Gained:</strong> 
+                                        <span className="text-success fw-bold">+{results.positive_marks}</span>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item className="d-flex justify-content-between">
+                                        <strong>Accuracy:</strong> 
+                                        <Badge bg="primary" pill>{accuracy}%</Badge>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item className="d-flex justify-content-between">
+                                        <strong>Correct Answers:</strong> 
+                                        <Badge bg="success" pill>{results.correct_count} / {attemptedQuestions}</Badge>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item className="d-flex justify-content-between">
+                                        <strong>Revealed / Forfeited:</strong> 
+                                        <Badge bg="warning" text="dark" pill>{revealedCount}</Badge>
+                                    </ListGroup.Item>
+                                </ListGroup>
+                            </Col>
+                        </Row>
                     </Card.Body>
+                    <Card.Footer className="text-center">
+                        <Button variant="primary" onClick={() => navigate('/practice')}>Take Another Quiz</Button>
+                    </Card.Footer>
                 </Card>
-                <h3>Review Your Answers</h3>
-                {results.detailed_results.map((res, index) => (
-                    <Card key={res.id} className={`mb-3 ${res.was_revealed ? 'border-warning' : (res.is_correct ? 'border-success' : 'border-danger')}`}>
-                        <Card.Header>
-                            Question {index + 1}
-                            {res.was_revealed && <Badge bg="warning" className="ms-2">Answer Revealed</Badge>}
-                        </Card.Header>
-                        <Card.Body>
-                            <p dangerouslySetInnerHTML={{ __html: `<strong>${res.question_text}</strong>` }}/>
-                            <p className={res.is_correct ? 'text-success' : 'text-danger'}>
-                                Your Answer: {Array.isArray(res.user_answer) ? res.user_answer.join(', ') : res.user_answer || 'Not Answered'}
-                            </p>
-                            {!res.is_correct && <p className="text-success">Correct Answer: {res.correct_answer}</p>}
-                            <p className="text-muted"><em>Explanation: {res.explanation}</em></p>
-                        </Card.Body>
-                    </Card>
-                ))}
+
+                <h3 className="mt-5">Detailed Question Review</h3>
+                {/* The Accordion for review remains unchanged */}
+                <Accordion defaultActiveKey="0">
+                    {results.detailed_results.map((res, index) => (
+                         <Accordion.Item eventKey={index.toString()} key={res.id}>
+                            <Accordion.Header>
+                                <span className="fw-bold me-2">Question {index + 1}</span>
+                                {res.was_revealed ? <LightbulbFill className="text-warning" /> : (res.is_correct ? <CheckCircleFill className="text-success" /> : <XCircleFill className="text-danger" />)}
+                            </Accordion.Header>
+                            <Accordion.Body>
+                                <p dangerouslySetInnerHTML={{ __html: `<strong>${res.question_text}</strong>` }}/>
+                                <p className={res.is_correct ? 'text-correct' : 'text-wrong'}>
+                                    Your Answer: {Array.isArray(res.user_answer) ? res.user_answer.join(', ') : res.user_answer || 'Not Answered'}
+                                </p>
+                                {!res.is_correct && <p className="text-correct">Correct Answer: {res.correct_answer}</p>}
+                                <hr/>
+                                <p className="text-muted mb-0"><strong>Explanation:</strong> {res.explanation}</p>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    ))}
+                </Accordion>
             </Container>
         );
     }
@@ -177,6 +211,7 @@ const QuizPage = () => {
     const currentQuestion = questions[currentQuestionIndex];
     const isRevealed = revealedAnswers.has(currentQuestion?.id);
     const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+    const currentAnswerData = fetchedAnswers[currentQuestion?.id];
 
     return (
         <Container className="mt-4" style={{ maxWidth: '800px' }}>
@@ -198,39 +233,28 @@ const QuizPage = () => {
                     <Form>{renderInputs(currentQuestion)}</Form>
                 </Card.Body>
                 <Card.Footer className="d-flex justify-content-between">
-                    <Button variant="secondary" onClick={() => setCurrentQuestionIndex(p => p - 1)} disabled={currentQuestionIndex === 0}>
-                        Previous
-                    </Button>
+                    <Button variant="secondary" onClick={() => setCurrentQuestionIndex(p => p - 1)} disabled={currentQuestionIndex === 0}>Previous</Button>
                     {currentQuestionIndex === questions.length - 1 ? (
                         <Button variant="success" onClick={() => setShowConfirmModal(true)} disabled={quizState === 'submitting'}>
                             {quizState === 'submitting' ? <Spinner as="span" animation="border" size="sm" /> : 'Submit Quiz'}
                         </Button>
                     ) : (
-                        <Button variant="primary" onClick={() => setCurrentQuestionIndex(p => p + 1)}>
-                            Next
-                        </Button>
+                        <Button variant="primary" onClick={() => setCurrentQuestionIndex(p => p + 1)}>Next</Button>
                     )}
                 </Card.Footer>
             </Card>
 
             <Modal show={showAnswerModal} onHide={() => setShowAnswerModal(false)} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>Answer & Explanation</Modal.Title>
-                </Modal.Header>
+                <Modal.Header closeButton><Modal.Title>Answer & Explanation</Modal.Title></Modal.Header>
                 <Modal.Body>
-                    <p><strong>Correct Answer: </strong>{revealedData?.correct_answer}</p>
-                    <hr/>
-                    <p><strong>Explanation: </strong>{revealedData?.explanation}</p>
+                    <p><strong>Correct Answer: </strong>{currentAnswerData?.correct_answer}</p><hr/>
+                    <p><strong>Explanation: </strong>{currentAnswerData?.explanation}</p>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowAnswerModal(false)}>Close</Button>
-                </Modal.Footer>
+                <Modal.Footer><Button variant="secondary" onClick={() => setShowAnswerModal(false)}>Close</Button></Modal.Footer>
             </Modal>
             
             <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>Confirm Submission</Modal.Title>
-                </Modal.Header>
+                <Modal.Header closeButton><Modal.Title>Confirm Submission</Modal.Title></Modal.Header>
                 <Modal.Body>Are you sure you want to finish and submit your quiz?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowConfirmModal(false)}>Cancel</Button>
