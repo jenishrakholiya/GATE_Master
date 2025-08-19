@@ -121,3 +121,20 @@ class ChallengeAttempt(models.Model):
     status = models.CharField(max_length=12, choices=STATUS_CHOICES, default='IN_PROGRESS')
     def __str__(self):
         return f"{self.user.username}'s attempt at {self.challenge.title}"
+
+
+class StudyMaterial(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
+    subject = models.CharField(max_length=4, choices=Question.SUBJECT_CHOICES)
+    
+    # This field will handle file uploads (PDFs, DOCX, etc.)
+    file = models.FileField(upload_to='study_materials/')
+    
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-uploaded_at']
+
+    def __str__(self):
+        return f"{self.get_subject_display()} - {self.title}"

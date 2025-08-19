@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import (
     CustomUser, Question, QuizResult, NewsArticle, 
-    Challenge, ChallengeAttempt
+    Challenge, ChallengeAttempt, StudyMaterial
 )
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -172,3 +172,20 @@ class ChallengeResultSerializer(serializers.ModelSerializer):
                 'is_correct': is_correct,
             })
         return results
+    
+class StudyMaterialSerializer(serializers.ModelSerializer):
+    subject_name = serializers.CharField(source='get_subject_display', read_only=True)
+    # --- NEW: Use a method to build the full file URL ---
+    file = serializers.SerializerMethodField()
+
+    class Meta:
+        model = StudyMaterial
+        fields = ['id', 'title', 'description', 'subject', 'subject_name', 'file', 'uploaded_at']
+
+    def get_file(self, obj):
+        # Get the request from the context
+        request = self.context.get('request')
+        if obj.file and hasattr(obj.file, 'url'):
+            # build_absolute_uri creates the full URL, e.g., http://localhost:8000/media/...
+            return request.build_absolute_uri(obj.file.url)
+        return None

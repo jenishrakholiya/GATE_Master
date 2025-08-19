@@ -74,7 +74,7 @@ const LeaderboardPage = () => {
                     </thead>
                     <tbody>
                         {leaderboard.map(entry => (
-                            <tr key={entry.rank} className={entry.username === user.username ? 'table-info' : ''}>
+                            <tr key={entry.rank} className={user && entry.username === user.username ? 'table-info' : ''}>
                                 <td><h4><Badge bg={entry.rank <= 3 ? 'warning' : 'secondary'} pill>{entry.rank}</Badge></h4></td>
                                 <td className="fw-bold">{entry.username}</td>
                                 <td className="fw-bold">{entry.score}</td>

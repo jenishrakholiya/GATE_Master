@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser, Question, QuizResult, Challenge, ChallengeAttempt
+from .models import CustomUser, Question, QuizResult, Challenge, ChallengeAttempt, StudyMaterial
 
 class CustomUserAdmin(UserAdmin):
     # You can customize the admin for your user model here if needed
@@ -32,6 +32,12 @@ class ChallengeAttemptAdmin(admin.ModelAdmin):
     list_display = ('user', 'challenge', 'status', 'score', 'start_time')
     list_filter = ('status', 'challenge')
 
+@admin.register(StudyMaterial)
+class StudyMaterialAdmin(admin.ModelAdmin):
+    list_display = ('title', 'subject', 'uploaded_at')
+    list_filter = ('subject',)
+    search_fields = ('title', 'description')
 
+    
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(QuizResult)

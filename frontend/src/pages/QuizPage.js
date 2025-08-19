@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Card, Button, Spinner, Alert, Form, Badge, ProgressBar, Modal, Row, Col, ListGroup, Accordion } from 'react-bootstrap';
 import { Lightbulb, CheckCircleFill, XCircleFill, LightbulbFill } from 'react-bootstrap-icons';
 import axiosInstance from '../utils/axiosInstance';
+import ThemeContext from '../context/ThemeContext';
 import Timer from '../components/Timer';
-
-// Import Chart.js components
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
@@ -27,6 +26,7 @@ const QuizPage = () => {
     const [revealedAnswers, setRevealedAnswers] = useState(new Set());
     const [fetchedAnswers, setFetchedAnswers] = useState({}); 
     const [showAnswerModal, setShowAnswerModal] = useState(false);
+    const { theme } = useContext(ThemeContext);
 
     useEffect(() => {
         const fetchQuiz = async () => {
@@ -135,12 +135,14 @@ const QuizPage = () => {
             }],
         };
 
+        const textColor = theme === 'light' ? '#212121' : '#e8eaf6';
+
         const doughnutOptions = {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { display: true, position: 'bottom', labels: { color: 'var(--bs-body-color)' } },
-                title: { display: true, text: 'Question Breakdown', font: { size: 16 }, color: 'var(--bs-body-color)' },
+                legend: { display: true, position: 'bottom', labels: { color: textColor } },
+                title: { display: true, text: 'Question Breakdown', font: { size: 16 }, color: textColor },
             },
             cutout: '60%',
         };

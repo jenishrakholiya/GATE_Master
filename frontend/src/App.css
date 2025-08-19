@@ -1,120 +1,160 @@
-/* File: frontend/src/App.css */
+/*
+====================================================================
+GATE Master: Master Theme & Styling File
+====================================================================
+This file controls the entire visual identity of the application.
+*/
 
-/* Add Google Font Import at the very top */
+/* --- PART 0: FONT IMPORT --- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 /* --- ☀️ Light Mode Theme Variables (Default) --- */
 :root {
-  /* Primary Action Color */
-  --bs-primary: #3B82F6;
-  --bs-primary-rgb: 59, 130, 246;
-  
+  /* Primary Colors */
+  --bs-primary: #1a237e;
+  --bs-primary-rgb: 26, 35, 126;
+  --bs-secondary: #5c6bc0;
+  --bs-secondary-rgb: 92, 107, 192;
+
   /* Accent Colors */
-  --bs-success: #10B981;
-  --bs-success-rgb: 16, 185, 129;
+  --bs-success: #52B788;
   --bs-danger: #EF4444;
-  --bs-danger-rgb: 239, 68, 68;
-  --bs-warning: #F59E0B;
-  --bs-warning-rgb: 245, 158, 11;
-  --bs-info: #3B82F6; /* Use primary for info */
+  --bs-warning: #ff5252;
+  --bs-info: #5c6bc0;
 
   /* Neutral & Text Colors */
-  --bs-body-bg: #F8F9FA;
-  --bs-body-color: #1F2937;
-  --bs-secondary-color: #6B7280;
-  --bs-light: #F8F9FA;
-  --bs-light-rgb: 248, 249, 250;
+  --bs-body-bg: #f5f7fa;
+  --bs-body-color: #212121;
+  --bs-secondary-color: #757575;
+  --bs-light: #f5f7fa;
+  --bs-light-rgb: 245, 247, 250;
   
   /* Surface & Border Colors */
-  --bs-card-bg: #FFFFFF;
-  --bs-card-cap-bg: #FFFFFF;
-  --bs-list-group-bg: #FFFFFF;
-  --bs-modal-content-bg: #FFFFFF;
-  --bs-card-border-color: rgba(0, 0, 0, 0.08);
+  --bs-card-bg: #ffffff;
+  --bs-card-cap-bg: #ffffff;
+  --bs-list-group-bg: #ffffff;
+  --bs-modal-content-bg: #ffffff;
+  --bs-border-color: #e0e0e0;
 
-  /* Custom Contextual Colors for Quiz */
-  --gate-correct: #10B981;
-  --gate-wrong: #EF4444;
+  /* Custom Quiz Colors */
+  --gate-correct: var(--bs-success);
+  --gate-wrong: var(--bs-danger);
 
   /* Global Styles */
-  --bs-font-sans-serif: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif;
-  --bs-border-radius: 0.375rem;
-  --bs-card-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.07);
+  --bs-font-sans-serif: 'Poppins', system-ui, sans-serif;
+  --bs-border-radius: 0.5rem;
+  --bs-card-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 
 /* --- 🌙 Dark Mode Theme Variables --- */
 [data-bs-theme="dark"] {
-  /* Primary Action Color */
-  --bs-primary: #60A5FA;
-  --bs-primary-rgb: 96, 165, 250;
+  /* Primary Colors */
+  --bs-primary: #9fa8da;
+  --bs-secondary: #e8eaf6;
 
   /* Accent Colors */
-  --bs-success: #34D399;
-  --bs-danger: #F87171;
-  --bs-warning: #FBBF24;
-  --bs-info: #60A5FA;
+  --bs-success: #52B788;
+  --bs-danger: #ff5252;
+  --bs-warning: #ff5252;
+  --bs-info: #9fa8da;
 
   /* Neutral & Text Colors */
-  --bs-body-bg: #111827;
-  --bs-body-color: #F3F4F6;
-  --bs-secondary-color: #9CA3AF;
-  --bs-light: #1F2937;
-  --bs-light-rgb: 31, 41, 55;
+  --bs-body-bg: #121212;
+  --bs-body-color: #e8eaf6;
+  --bs-secondary-color: #b0bec5;
 
   /* Surface & Border Colors */
-  --bs-card-bg: #1F2937;
-  --bs-card-cap-bg: #374151;
-  --bs-list-group-bg: #1F2937;
-  --bs-modal-content-bg: #1F2937;
-  --bs-card-border-color: rgba(255, 255, 255, 0.1);
-  --bs-table-striped-bg: #2c3542;
+  --bs-card-bg: #1e1e1e;
+  --bs-card-cap-bg: #2a2a2a;
+  --bs-list-group-bg: #1e1e1e;
+  --bs-modal-content-bg: #1e1e1e;
+  --bs-border-color: #333333;
+  --bs-table-striped-bg: #2c2c2c;
   --bs-table-bg: var(--bs-card-bg);
-  --bs-table-border-color: var(--bs-card-border-color);
 
-  /* Custom Contextual Colors for Quiz */
-  --gate-correct: #34D399;
-  --gate-wrong: #F87171;
+  /* Custom Quiz Colors */
+  --gate-correct: var(--bs-success);
+  --gate-wrong: var(--bs-danger);
 }
+
 
 /* --- Global Styles & Overrides --- */
 body {
   background-color: var(--bs-body-bg);
   font-family: var(--bs-font-sans-serif);
+  color: var(--bs-body-color);
 }
 
-.auth-card {
-  max-width: 500px;
-  padding: 2rem;
-  border: none;
-  box-shadow: var(--bs-card-shadow);
-  border-radius: var(--bs-border-radius);
-  background-color: var(--bs-card-bg);
+.btn-primary:hover {
+  background-color: var(--bs-secondary);
+  border-color: var(--bs-secondary);
+}
+
+[data-bs-theme="dark"] .btn-primary {
+  color: #121212;
+}
+[data-bs-theme="dark"] .btn-primary:hover {
+  color: #121212;
 }
 
 .card {
-  border: none;
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--bs-border-color);
+  box-shadow: var(--bs-card-shadow);
 }
-
 [data-bs-theme="dark"] .card {
-    box-shadow: none; /* Dark themes often look better with no shadow */
-}
-
-.card-hover {
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-.card-hover:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--bs-card-shadow);
+    box-shadow: none;
 }
 
 .text-correct { color: var(--gate-correct); font-weight: 500; }
-.border-correct { border: 1px solid var(--gate-correct) !important; }
 .text-wrong { color: var(--gate-wrong); font-weight: 500; }
-.border-wrong { border: 1px solid var(--gate-wrong) !important; }
 
-/* ... (other specific styles) ... */
+main.flex-grow-1 {
+  flex: 1;
+}
+
+/* ====================================================================
+PART 4: COMPONENT-SPECIFIC FIXES
+====================================================================
+*/
+
+/* --- FIX for Header Cards (`.bg-light`) in Dark Mode --- */
+/* This forces any element with .bg-light to adopt our dark theme's surface colors. */
 [data-bs-theme="dark"] .bg-light {
-    background-color: var(--bs-light) !important;
+  background-color: var(--bs-card-cap-bg) !important;
+  color: var(--bs-body-color) !important;
+}
+[data-bs-theme="dark"] .bg-light .text-muted {
+  color: var(--bs-secondary-color) !important;
+}
+
+/* --- FIX for Navbar in Dark Mode --- */
+/* These more specific rules ensure all links are always readable. */
+.navbar {
+  background-color: var(--bs-card-bg);
+  border-bottom: 1px solid var(--bs-border-color);
+}
+[data-bs-theme="dark"] .navbar {
+  background-color: #1a237e; /* Use primary brand color for dark navbar */
+}
+
+/* Make ALL links in the dark navbar light and readable */
+[data-bs-theme="dark"] .navbar .nav-link, 
+[data-bs-theme="dark"] .navbar .navbar-brand {
+  color: rgba(232, 234, 246, 0.8); /* Light Indigo with transparency */
+}
+[data-bs-theme="dark"] .navbar .nav-link:hover,
+[data-bs-theme="dark"] .navbar .nav-link.active,
+[data-bs-theme="dark"] .navbar .navbar-brand:hover {
+  color: #e8eaf6; /* Full Light Indigo */
+}
+
+/* Accordion theme styles */
+.accordion-button:not(.collapsed) {
+  color: #fff;
+  background-color: var(--bs-secondary);
+}
+[data-bs-theme="dark"] .accordion-button:not(.collapsed) {
+  color: #121212;
+  background-color: var(--bs-secondary);
 }

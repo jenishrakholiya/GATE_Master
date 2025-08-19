@@ -1,7 +1,7 @@
 import json
 from django.utils import timezone
 from django.db import transaction
-from django.db.models import Sum, Avg, F, Max
+from django.db.models import Sum, Avg, F, Max, Count
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth.tokens import default_token_generator
@@ -16,12 +16,12 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .models import (
     CustomUser, Question, QuizResult, NewsArticle, 
-    Challenge, ChallengeAttempt
+    Challenge, ChallengeAttempt, StudyMaterial
 )
 from .serializers import (
     RegisterSerializer, MyTokenObtainPairSerializer, QuizQuestionSerializer, 
     QuizResultSerializer, NewsArticleSerializer, ChallengeSerializer, 
-    ChallengeAttemptSerializer, ChallengeResultSerializer
+    ChallengeAttemptSerializer, ChallengeResultSerializer, StudyMaterialSerializer
 )
 from .utils import send_verification_email
 
@@ -254,28 +254,49 @@ class ChallengeResultView(generics.RetrieveAPIView):
 
 class AnalyticsSummaryView(views.APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request, *args, **kwargs):
         user = request.user
         results = QuizResult.objects.filter(user=user)
+        
         if not results.exists():
             return Response({
                 "overall_accuracy": 0, "quizzes_taken": 0,
-                "subject_performance": [], "recent_activity": []
+                "subject_performance": [], "recent_activity": [],
+                "subject_distribution": [] # Add new key for empty state
             })
+
+        # 1. Overall Performance (unchanged)
         overall_stats = results.aggregate(total_score=Sum('score'), total_possible=Sum('total_marks'))
         overall_accuracy = (overall_stats['total_score'] / overall_stats['total_possible']) * 100 if overall_stats['total_possible'] > 0 else 0
+
+        # 2. Subject-wise Performance (unchanged)
         subject_performance = results.values('subject').annotate(
             subject_name=F('subject'),
             avg_accuracy=Avg(F('score') * 100.0 / F('total_marks'))
         ).order_by('-avg_accuracy')
+        
         subject_map = dict(Question.SUBJECT_CHOICES)
         subject_performance_data = [{**item, 'subject_name': subject_map.get(item['subject_name'])} for item in subject_performance]
-        recent_activity = results.order_by('-timestamp')[:5]
+
+        # 3. Recent Activity (now fetches last 10 for the trend chart)
+        recent_activity = results.order_by('-timestamp')[:10]
         recent_activity_data = QuizResultSerializer(recent_activity, many=True).data
+
+        # 4. NEW: Calculate Subject Distribution (for the doughnut chart)
+        subject_distribution = results.values('subject').annotate(
+            count=Count('id')
+        ).order_by('-count')
+        subject_distribution_data = [{**item, 'subject_name': subject_map.get(item['subject'])} for item in subject_distribution]
+
         response_data = {
-            "overall_accuracy": round(overall_accuracy, 2), "quizzes_taken": results.count(),
-            "subject_performance": subject_performance_data, "recent_activity": recent_activity_data
+            "overall_accuracy": round(overall_accuracy, 2),
+            "quizzes_taken": results.count(),
+            "subject_performance": subject_performance_data,
+            "recent_activity": recent_activity_data,
+            "subject_distribution": subject_distribution_data, 
         }
+        
         return Response(response_data)
 
 class NewsArticleListView(generics.ListAPIView):
@@ -334,3 +355,22 @@ class LeaderboardView(views.APIView):
         }
 
         return Response(response_data)
+    
+# ====================================================================
+# MATERIAL ZONE VIEWS
+# ====================================================================
+
+class StudyMaterialListView(generics.ListAPIView):
+    serializer_class = StudyMaterialSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        """
+        Optionally filters the materials by a 'subject' query parameter.
+        e.g., /api/materials/?subject=ALGO
+        """
+        queryset = StudyMaterial.objects.all()
+        subject = self.request.query_params.get('subject')
+        if subject:
+            queryset = queryset.filter(subject=subject)
+        return queryset

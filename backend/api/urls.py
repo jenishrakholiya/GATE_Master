@@ -15,6 +15,7 @@ from .views import (
     SubmitChallengeView, 
     ChallengeResultView,
     LeaderboardView,
+    StudyMaterialListView,
 )
 from rest_framework_simplejwt.views import TokenRefreshView
 from .views import QuizSubmissionView
@@ -35,4 +36,5 @@ urlpatterns = [
     path('challenges/result/<int:pk>/', ChallengeResultView.as_view(), name='challenge-result'),
     path('leaderboard/', LeaderboardView.as_view(), name='leaderboard'),
     path('information/news/', NewsArticleListView.as_view(), name='news-list'),
+    path('materials/', StudyMaterialListView.as_view(), name='material-list'),
 ]
