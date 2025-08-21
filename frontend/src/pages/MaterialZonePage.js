@@ -46,10 +46,6 @@ const MaterialZonePage = () => {
 
     return (
         <Container className="mt-4">
-            <div className="p-4 mb-4 page-header rounded-3">
-                <h2>Material Zone</h2>
-                <p className="lead text-muted">Browse and download subject-wise notes, formulas, and important PDFs.</p>
-            </div>
 
             <Card className="shadow-sm mb-4">
                 <Card.Body>

@@ -3,8 +3,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import { ThemeProvider } from './context/ThemeContext';
 import './App.css';
+import './styles/index.css';
+
 
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -24,7 +25,6 @@ import MaterialZonePage from './pages/MaterialZonePage';
 
 function App() {
   return (
-    <ThemeProvider>
       <Router>
         <AuthProvider>
           <Routes>
@@ -54,7 +54,6 @@ function App() {
           </Routes>
         </AuthProvider>
       </Router>
-    </ThemeProvider>
   );
 }
 

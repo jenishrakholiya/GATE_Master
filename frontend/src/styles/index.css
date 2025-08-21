@@ -1,0 +1,49 @@
+/* Import all component styles */
+@import './components/Header.module.css';
+@import './components/Footer.module.css';
+@import './components/Layout.module.css';
+@import './components/LandingPage.module.css';
+@import './components/LoginPage.module.css';
+@import './components/RegisterPage.module.css';
+@import './components/DashboardPage.module.css';
+@import './components/QuizPage.module.css';
+@import './components/EmailVerificationPage.module.css';
+@import './components/PracticeZonePage.module.css';
+@import './components/MaterialZonePage.module.css';
+@import './components/ChallengeAttemptPage.module.css';
+@import './components/ChallengeListPage.module.css';
+@import './components/ChallengeResultPage.module.css';
+@import './components/InformationZonePage.module.css';
+@import './components/LeaderboardPage.module.css';
+
+/* Additional global animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}

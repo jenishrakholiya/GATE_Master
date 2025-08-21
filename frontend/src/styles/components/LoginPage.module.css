@@ -1,0 +1,267 @@
+/* ====================================================================
+GATE Master - Enhanced Login Page Styles
+==================================================================== */
+
+/* Login Container */
+.login-container {
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, 
+    rgba(26, 35, 126, 0.05) 0%, 
+    rgba(92, 107, 192, 0.05) 100%);
+}
+
+/* Login Card Enhancement */
+.login-card {
+  width: 100%;
+  max-width: 450px;
+  border: none !important;
+  border-radius: 20px !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1) !important;
+  background: var(--bs-card-bg) !important;
+  overflow: hidden;
+  position: relative;
+  animation: slideInUp 0.6s ease-out;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--bs-primary), var(--bs-secondary));
+}
+
+.login-card-body {
+  padding: 3rem 2.5rem !important;
+}
+
+/* Login Title */
+.login-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--bs-body-color);
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+/* Form Groups Enhancement */
+.login-form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.login-form-label {
+  font-weight: 600;
+  color: var(--bs-body-color);
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.login-form-control {
+  padding: 0.875rem 1rem !important;
+  border: 2px solid var(--bs-border-color) !important;
+  border-radius: 12px !important;
+  background: var(--bs-card-bg) !important;
+  color: var(--bs-body-color) !important;
+  font-size: 1rem !important;
+  transition: all 0.3s ease !important;
+  box-shadow: none !important;
+}
+
+.login-form-control:focus {
+  border-color: var(--bs-primary) !important;
+  box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1) !important;
+  background: var(--bs-card-bg) !important;
+  color: var(--bs-body-color) !important;
+}
+
+.login-form-control::placeholder {
+  color: var(--bs-secondary-color);
+  opacity: 0.7;
+}
+
+/* Login Button Enhancement */
+.login-submit-button {
+  width: 100% !important;
+  padding: 0.875rem 1rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, var(--bs-primary), var(--bs-secondary)) !important;
+  border: none !important;
+  color: white !important;
+  transition: all 0.4s ease !important;
+  margin-top: 1rem;
+  box-shadow: 0 4px 15px rgba(26, 35, 126, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-submit-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255,255,255,0.2), 
+    transparent);
+  transition: left 0.6s ease;
+}
+
+.login-submit-button:hover::before {
+  left: 100%;
+}
+
+.login-submit-button:hover {
+  background: linear-gradient(135deg, var(--bs-secondary), var(--bs-primary)) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(26, 35, 126, 0.4);
+  color: white !important;
+}
+
+.login-submit-button:active {
+  transform: translateY(0);
+}
+
+
+
+/* Loading State */
+.login-submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Additional Links (if you want to add forgot password, etc.) */
+.login-links {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--bs-border-color);
+}
+
+.login-link {
+  color: var(--bs-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.login-link:hover {
+  color: var(--bs-secondary);
+  text-decoration: underline;
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 576px) {
+  .login-container {
+    padding: 1rem;
+    min-height: 80vh;
+  }
+  
+  .login-card-body {
+    padding: 2rem 1.5rem !important;
+  }
+  
+  .login-title {
+    font-size: 1.75rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .login-card {
+    animation: none;
+  }
+  
+  .login-submit-button:hover {
+    transform: none;
+  }
+}
+
+/* Focus Management */
+.login-form-control:focus {
+  outline: none;
+}
+
+/* Error State */
+.login-form-control.is-invalid {
+  border-color: var(--bs-danger) !important;
+}
+
+.login-form-control.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+
+/* Navigation Links at Bottom */
+.login-links {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--bs-border-color);
+}
+
+.auth-switch-text {
+  margin: 0;
+  color: var(--bs-secondary-color);
+  font-size: 0.95rem;
+}
+
+.auth-switch-link {
+  color: var(--bs-primary) !important;
+  text-decoration: none !important;
+  font-weight: 600;
+  margin-left: 0.25rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.auth-switch-link:hover {
+  color: var(--bs-secondary) !important;
+}
+
+.auth-switch-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--bs-primary), var(--bs-secondary));
+  transition: width 0.3s ease;
+}
+
+.auth-switch-link:hover::after {
+  width: 100%;
+}
+
+[data-bs-theme="dark"] .auth-switch-link {
+  color: var(--bs-primary) !important;
+}
+
+[data-bs-theme="dark"] .auth-switch-link:hover {
+  color: var(--bs-secondary) !important;
+}

@@ -60,7 +60,7 @@ const ChallengeResultPage = () => {
 
     return (
         <Container className="mt-4">
-            <Card className="shadow-sm mb-4">
+            <Card className="result-header-card shadow-sm mb-4">
                 <Card.Header as="h4" className="text-center">{resultData.challenge_title} - Report</Card.Header>
                 <Card.Body>
                     <Row className="align-items-center">
@@ -94,7 +94,7 @@ const ChallengeResultPage = () => {
 
             <h3 className="mt-5">Detailed Question Review</h3>
             {/* The Accordion for review remains unchanged */}
-            <Accordion>
+            <Accordion className="review-accordion">
                 {resultData.detailed_results.map((res, index) => (
                      <Accordion.Item eventKey={index.toString()} key={res.id}>
                         <Accordion.Header>

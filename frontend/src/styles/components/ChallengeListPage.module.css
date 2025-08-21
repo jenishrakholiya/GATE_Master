@@ -1,0 +1,279 @@
+/* ====================================================================
+GATE Master - Enhanced Challenge List Page Styles
+==================================================================== */
+
+/* Page Header Enhancement */
+.challenge-header {
+  background: linear-gradient(135deg, 
+    rgba(26, 35, 126, 0.05) 0%, 
+    rgba(92, 107, 192, 0.05) 100%);
+  border: 1px solid var(--bs-border-color);
+  animation: fadeInUp 0.6s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.challenge-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--bs-primary), var(--bs-secondary));
+}
+
+.challenge-header h2 {
+  font-weight: 700;
+  color: var(--bs-body-color);
+  margin-bottom: 0.5rem;
+  font-size: 2.25rem;
+}
+
+.challenge-header .lead {
+  font-size: 1.1rem;
+  color: var(--bs-secondary-color);
+  margin: 0;
+}
+
+/* Challenge Cards Enhancement */
+.challenge-card {
+  border: none !important;
+  border-radius: 15px !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  overflow: hidden;
+  position: relative;
+  background: var(--bs-card-bg);
+  height: 100% !important;
+}
+
+.challenge-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--bs-success), #66bb6a);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.challenge-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15) !important;
+}
+
+.challenge-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* Card Body Enhancement */
+.challenge-card .card-body {
+  padding: 2rem !important;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Card Title Enhancement */
+.challenge-card .card-title {
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
+  color: var(--bs-body-color) !important;
+  margin-bottom: 1rem !important;
+  line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+.challenge-card:hover .card-title {
+  color: var(--bs-primary) !important;
+}
+
+/* Card Text Enhancement */
+.challenge-card .card-text {
+  color: var(--bs-secondary-color) !important;
+  line-height: 1.6;
+  margin-bottom: 1.5rem !important;
+  flex-grow: 1;
+  font-size: 1rem;
+}
+
+/* Start Challenge Button Enhancement */
+.start-challenge-btn {
+  background: linear-gradient(135deg, var(--bs-success) 0%, #66bb6a 100%) !important;
+  border: none !important;
+  border-radius: 25px !important;
+  padding: 0.875rem 2rem !important;
+  font-weight: 700 !important;
+  color: white !important;
+  transition: all 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none !important;
+  font-size: 1.1rem;
+}
+
+.start-challenge-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(82, 183, 136, 0.4) !important;
+  color: white !important;
+}
+
+.start-challenge-btn:active {
+  transform: translateY(-1px);
+}
+
+.start-challenge-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255,255,255,0.2), 
+    transparent);
+  transition: left 0.6s ease;
+}
+
+.start-challenge-btn:hover::before {
+  left: 100%;
+}
+
+/* Loading States */
+.challenges-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+}
+
+.challenges-loading .spinner-border {
+  width: 3rem;
+  height: 3rem;
+  border-color: var(--bs-primary) transparent var(--bs-primary) transparent;
+  margin-bottom: 1.5rem;
+}
+
+/* Modal Enhancements */
+.confirm-modal .modal-content {
+  border: none !important;
+  border-radius: 15px !important;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15) !important;
+}
+
+.confirm-modal .modal-header {
+  background: var(--bs-card-cap-bg) !important;
+  border-bottom: 1px solid var(--bs-border-color) !important;
+  border-radius: 15px 15px 0 0 !important;
+}
+
+.confirm-modal .modal-body {
+  padding: 2rem !important;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.confirm-modal .modal-footer {
+  background: var(--bs-card-cap-bg) !important;
+  border-top: 1px solid var(--bs-border-color) !important;
+  border-radius: 0 0 15px 15px !important;
+}
+
+.confirm-modal .text-danger {
+  background: rgba(239, 68, 68, 0.1);
+  padding: 0.75rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--bs-danger);
+}
+
+/* Modal Buttons */
+.modal-btn-ready {
+  background: linear-gradient(135deg, var(--bs-success), #66bb6a) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1.5rem !important;
+  font-weight: 600 !important;
+  color: white !important;
+}
+
+.modal-btn-cancel {
+  background: transparent !important;
+  border: 2px solid var(--bs-secondary-color) !important;
+  color: var(--bs-secondary-color) !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1.5rem !important;
+  font-weight: 600 !important;
+}
+
+.modal-btn-cancel:hover {
+  background: var(--bs-secondary-color) !important;
+  color: white !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .challenge-header {
+    padding: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .challenge-header h2 {
+    font-size: 1.75rem;
+  }
+  
+  .challenge-header .lead {
+    font-size: 1rem;
+  }
+  
+  .challenge-card .card-body {
+    padding: 1.5rem !important;
+  }
+  
+  .challenge-card .card-title {
+    font-size: 1.2rem !important;
+  }
+  
+  .start-challenge-btn {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 1rem !important;
+    width: 100%;
+  }
+  
+  .challenge-card:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .challenge-card,
+  .start-challenge-btn {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .challenge-card:hover,
+  .start-challenge-btn:hover {
+    transform: none !important;
+  }
+}

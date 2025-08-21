@@ -146,7 +146,7 @@ const ChallengeAttemptPage = () => {
         <Container fluid className="mt-4">
             <Row>
                 <Col md={9}>
-                    <Card>
+                    <Card className="question-card">
                         <Card.Header>
                             Question {currentQuestionIndex + 1}
                             <Badge bg="secondary" className="ms-2">{currentQuestion.question_type}</Badge>
@@ -178,7 +178,7 @@ const ChallengeAttemptPage = () => {
                     </Card>
                 </Col>
                 <Col md={3}>
-                    <Card>
+                    <Card className="palette-card">
                         <Card.Header className="text-center d-flex justify-content-center align-items-center">
                             Time Left: <Timer seconds={3 * 60 * 60} onTimeUp={handleSubmit} />
                         </Card.Header>

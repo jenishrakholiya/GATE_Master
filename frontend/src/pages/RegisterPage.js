@@ -1,13 +1,9 @@
-// File: frontend/src/pages/RegisterPage.js
-
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Container, Form, Button, Alert } from 'react-bootstrap';
+import { useNavigate, Link } from 'react-router-dom';
+import { Container, Form, Button, Alert, Card } from 'react-bootstrap';
 import axios from 'axios';
 
 const RegisterPage = () => {
-    // --- THIS BLOCK WAS LIKELY MISSING ---
-    // This is where we declare all the state variables for our form.
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -15,7 +11,6 @@ const RegisterPage = () => {
     const [error, setError] = useState('');
     const [isRegistered, setIsRegistered] = useState(false);
     const navigate = useNavigate();
-    // ------------------------------------
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,45 +35,91 @@ const RegisterPage = () => {
         }
     };
 
-    // If registration is successful, show a message instead of the form
     if (isRegistered) {
         return (
-            <Container className="mt-5" style={{ maxWidth: '600px' }}>
-                <Alert variant="success">
+            <div className="register-container">
+                <Alert className="register-success-alert">
                     <Alert.Heading>Registration Successful!</Alert.Heading>
                     <p>
-                        Thank you for registering. We've sent a verification link to your email address.
+                        Thank you for registering with GATE Master! We've sent a verification link to your email address.
                         Please check your inbox (and spam folder) to complete your registration.
                     </p>
+                    <div className="success-login-link">
+                        <Link to="/login" className="btn btn-outline-light">
+                            Go to Login
+                        </Link>
+                    </div>
                 </Alert>
-            </Container>
+            </div>
         );
     }
 
     return (
-        <Container className="mt-5" style={{ maxWidth: '500px' }}>
-            <h2>Register</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
-            <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" value={username} onChange={e => setUsername(e.target.value)} required />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" value={email} onChange={e => setEmail(e.target.value)} required />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} required />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control type="password" value={password2} onChange={e => setPassword2(e.target.value)} required />
-                </Form.Group>
-                <Button variant="primary" type="submit">Register</Button>
-            </Form>
-        </Container>
+        <div className="register-container">
+            <Card className="register-card">
+                <Card.Body className="register-card-body">
+                    <h2 className="register-title">Join GATE Master</h2>
+                    {error && <Alert variant="danger" className="register-error-alert">{error}</Alert>}
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group className="register-form-group">
+                            <Form.Label className="register-form-label">Username</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                value={username} 
+                                onChange={e => setUsername(e.target.value)} 
+                                placeholder="Choose a username"
+                                className="register-form-control"
+                                required 
+                            />
+                        </Form.Group>
+                        <Form.Group className="register-form-group">
+                            <Form.Label className="register-form-label">Email</Form.Label>
+                            <Form.Control 
+                                type="email" 
+                                value={email} 
+                                onChange={e => setEmail(e.target.value)} 
+                                placeholder="Enter your email"
+                                className="register-form-control"
+                                required 
+                            />
+                        </Form.Group>
+                        <Form.Group className="register-form-group">
+                            <Form.Label className="register-form-label">Password</Form.Label>
+                            <Form.Control 
+                                type="password" 
+                                value={password} 
+                                onChange={e => setPassword(e.target.value)} 
+                                placeholder="Create a strong password"
+                                className="register-form-control"
+                                required 
+                            />
+                        </Form.Group>
+                        <Form.Group className="register-form-group">
+                            <Form.Label className="register-form-label">Confirm Password</Form.Label>
+                            <Form.Control 
+                                type="password" 
+                                value={password2} 
+                                onChange={e => setPassword2(e.target.value)} 
+                                placeholder="Confirm your password"
+                                className="register-form-control"
+                                required 
+                            />
+                        </Form.Group>
+                        <Button type="submit" className="register-submit-button">
+                            Create Account
+                        </Button>
+                    </Form>
+                    
+                    {/* Navigation to Login */}
+                    <div className="register-links">
+                        <p className="auth-switch-text">
+                            Already have an account? 
+                            <Link to="/login" className="auth-switch-link"> Sign in here</Link>
+                        </p>
+                    </div>
+                </Card.Body>
+            </Card>
+        </div>
     );
 };
 

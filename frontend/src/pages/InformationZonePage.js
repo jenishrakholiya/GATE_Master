@@ -24,24 +24,17 @@ const InformationZonePage = () => {
 
     return (
         <Container className="mt-4">
-            <div className="p-4 mb-4 bg-light rounded-3">
-                <h2>Information Zone</h2>
-                <p className="lead text-muted">
-                    Your central hub for official GATE news and essential exam information.
-                </p>
-            </div>
-
             <Row>
                 {/* --- Column 1: News & Updates --- */}
                 <Col lg={7} className="mb-4">
-                    <Card className="shadow-sm h-100">
+                    <Card className="news-card shadow-sm h-100">
                         <Card.Header as="h5">News & Updates</Card.Header>
                         {loading ? (
                             <div className="text-center p-5"><Spinner animation="border" /></div>
                         ) : error ? (
                             <Alert variant="danger" className="m-3">{error}</Alert>
                         ) : (
-                            <ListGroup variant="flush" style={{ maxHeight: '600px', overflowY: 'auto' }}>
+                            <ListGroup variant="flush" className="news-list">
                                 {articles.length > 0 ? (
                                     articles.map(article => (
                                         <ListGroup.Item key={article.id} action href={article.link} target="_blank" rel="noopener noreferrer">
@@ -65,10 +58,10 @@ const InformationZonePage = () => {
 
                 {/* --- Column 2: Exam Pattern & Info --- */}
                 <Col lg={5} className="mb-4">
-                    <Card className="shadow-sm h-100">
+                    <Card className="pattern-card shadow-sm h-100">
                         <Card.Header as="h5">GATE Exam Pattern & Structure</Card.Header>
                         <Card.Body>
-                            <Accordion defaultActiveKey="0" alwaysOpen>
+                            <Accordion defaultActiveKey="0" alwaysOpen className="info-accordion">
                                 <Accordion.Item eventKey="0">
                                     <Accordion.Header>Exam Mode & Duration</Accordion.Header>
                                     <Accordion.Body>
@@ -83,7 +76,7 @@ const InformationZonePage = () => {
                                 <Accordion.Item eventKey="1">
                                     <Accordion.Header>Question Types & Marking Scheme</Accordion.Header>
                                     <Accordion.Body>
-                                        <Table striped bordered size="sm">
+                                        <Table striped bordered size="sm" className="pattern-table">
                                             <thead>
                                                 <tr><th>Type</th><th>Negative Marking</th></tr>
                                             </thead>
@@ -117,7 +110,7 @@ const InformationZonePage = () => {
                                 <Accordion.Item eventKey="3">
                                     <Accordion.Header>GATE CS Subjects</Accordion.Header>
                                     <Accordion.Body>
-                                        <Row xs={2}>
+                                        <div className="subjects-grid">
                                             <Col>• Engineering Maths</Col>
                                             <Col>• Digital Logic</Col>
                                             <Col>• Computer Organization</Col>
@@ -129,7 +122,7 @@ const InformationZonePage = () => {
                                             <Col>• Databases (DBMS)</Col>
                                             <Col>• Computer Networks</Col>
                                             <Col>• General Aptitude</Col>
-                                        </Row>
+                                        </div>
                                     </Accordion.Body>
                                 </Accordion.Item>
                             </Accordion>

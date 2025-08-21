@@ -1,16 +1,16 @@
-// File: frontend/src/components/Footer.js
-
 import React from 'react';
 import { Container } from 'react-bootstrap';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
     return (
-        <footer className="footer mt-auto py-3 bg-light">
-            <Container className="text-center">
-                <span className="text-muted">
-                    &copy; {currentYear} GATE Master. All Rights Reserved.
-                </span>
+        <footer className="enhanced-footer footer-fade-in">
+            <Container>
+                <div className="enhanced-footer-content">
+                    <p className="enhanced-copyright">
+                        &copy; {currentYear} <span className="footer-brand">GATE Master</span>. All Rights Reserved.
+                    </p>
+                </div>
             </Container>
         </footer>
     );

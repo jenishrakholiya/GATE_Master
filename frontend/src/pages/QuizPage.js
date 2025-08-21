@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Card, Button, Spinner, Alert, Form, Badge, ProgressBar, Modal, Row, Col, ListGroup, Accordion } from 'react-bootstrap';
 import { Lightbulb, CheckCircleFill, XCircleFill, LightbulbFill } from 'react-bootstrap-icons';
 import axiosInstance from '../utils/axiosInstance';
-import ThemeContext from '../context/ThemeContext';
 import Timer from '../components/Timer';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -26,7 +25,6 @@ const QuizPage = () => {
     const [revealedAnswers, setRevealedAnswers] = useState(new Set());
     const [fetchedAnswers, setFetchedAnswers] = useState({}); 
     const [showAnswerModal, setShowAnswerModal] = useState(false);
-    const { theme } = useContext(ThemeContext);
 
     useEffect(() => {
         const fetchQuiz = async () => {
@@ -130,12 +128,13 @@ const QuizPage = () => {
             datasets: [{
                 data: [results.correct_count, incorrectCount],
                 backgroundColor: ['#10B981', '#EF4444'],
-                borderColor: ['var(--bs-card-bg)', 'var(--bs-card-bg)'],
+                borderColor: ['#ffffff', '#ffffff'],
                 borderWidth: 2,
             }],
         };
 
-        const textColor = theme === 'light' ? '#212121' : '#e8eaf6';
+        // Fixed text color for light mode
+        const textColor = '#212121';
 
         const doughnutOptions = {
             responsive: true,
@@ -159,7 +158,6 @@ const QuizPage = () => {
                             <Col md={8}>
                                 <h2 className="text-center">Final Score: {results.score} / {results.total_marks}</h2>
                                 <ListGroup variant="flush" className="mt-3">
-                                    {/* --- UPDATED STATS BREAKDOWN --- */}
                                     <ListGroup.Item className="d-flex justify-content-between">
                                         <strong>Marks Gained:</strong> 
                                         <span className="text-success fw-bold">+{results.positive_marks}</span>
@@ -186,7 +184,6 @@ const QuizPage = () => {
                 </Card>
 
                 <h3 className="mt-5">Detailed Question Review</h3>
-                {/* The Accordion for review remains unchanged */}
                 <Accordion defaultActiveKey="0">
                     {results.detailed_results.map((res, index) => (
                          <Accordion.Item eventKey={index.toString()} key={res.id}>

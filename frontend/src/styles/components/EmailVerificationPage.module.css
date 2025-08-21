@@ -1,0 +1,311 @@
+/* ====================================================================
+GATE Master - Enhanced Email Verification Page Styles
+==================================================================== */
+
+/* Verification Container */
+.verification-container {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.verification-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--bs-body-color);
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.verification-title::after {
+  content: '📧';
+  display: block;
+  font-size: 3rem;
+  margin-top: 1rem;
+}
+
+/* Verification States */
+.verification-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.verification-spinner {
+  width: 4rem;
+  height: 4rem;
+  border-width: 4px;
+  border-color: var(--bs-primary);
+  border-right-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+.verification-loading-text {
+  font-size: 1.2rem;
+  color: var(--bs-secondary-color);
+  font-weight: 500;
+}
+
+/* Success Alert Enhancement */
+.verification-success {
+  border: none !important;
+  border-radius: 20px !important;
+  background: linear-gradient(135deg, var(--bs-success), #66bb6a) !important;
+  color: white !important;
+  box-shadow: 0 15px 40px rgba(82, 183, 136, 0.3);
+  padding: 3rem 2rem !important;
+  max-width: 600px;
+  margin: 0 auto;
+  animation: slideInUp 0.8s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.verification-success::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255,255,255,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.verification-success .alert-heading {
+  color: white !important;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.verification-success .alert-heading::before {
+  content: '✅';
+  display: block;
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: bounce 2s infinite;
+}
+
+.verification-success p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.verification-success hr {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  margin: 2rem 0;
+}
+
+.success-login-btn {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border: 2px solid rgba(255, 255, 255, 0.5) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 1rem 2.5rem !important;
+  border-radius: 50px !important;
+  transition: all 0.4s ease !important;
+  text-decoration: none !important;
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(10px);
+}
+
+.success-login-btn:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border-color: white !important;
+  color: white !important;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+/* Error Alert Enhancement */
+.verification-error {
+  border: none !important;
+  border-radius: 20px !important;
+  background: rgba(239, 68, 68, 0.1) !important;
+  border: 2px solid rgba(239, 68, 68, 0.2) !important;
+  color: var(--bs-danger) !important;
+  padding: 3rem 2rem !important;
+  max-width: 600px;
+  margin: 0 auto;
+  animation: slideInUp 0.8s ease-out;
+  position: relative;
+}
+
+.verification-error .alert-heading {
+  color: var(--bs-danger) !important;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.verification-error .alert-heading::before {
+  content: '❌';
+  display: block;
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.verification-error p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Additional Elements */
+.verification-info {
+  background: rgba(26, 35, 126, 0.05);
+  border: 1px solid rgba(26, 35, 126, 0.1);
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 2rem 0;
+  max-width: 500px;
+}
+
+.verification-info h4 {
+  color: var(--bs-primary);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.verification-info p {
+  color: var(--bs-secondary-color);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Loading Animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .verification-container {
+    padding: 1.5rem 1rem;
+    min-height: 60vh;
+  }
+  
+  .verification-title {
+    font-size: 2rem;
+  }
+  
+  .verification-success,
+  .verification-error {
+    padding: 2rem 1.5rem !important;
+    margin: 0 1rem;
+  }
+  
+  .verification-success .alert-heading,
+  .verification-error .alert-heading {
+    font-size: 1.5rem;
+  }
+  
+  .verification-success .alert-heading::before,
+  .verification-error .alert-heading::before {
+    font-size: 3rem;
+  }
+  
+  .success-login-btn {
+    padding: 0.875rem 2rem !important;
+    font-size: 1rem !important;
+  }
+  
+  .verification-info {
+    padding: 1.5rem;
+    margin: 1.5rem 1rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .verification-container,
+  .verification-success,
+  .verification-error {
+    animation: none;
+  }
+  
+  .verification-spinner {
+    animation: none;
+  }
+  
+  .success-login-btn:hover {
+    transform: none;
+  }
+  
+  .verification-success .alert-heading::before {
+    animation: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .verification-success {
+    background: var(--bs-success) !important;
+    border: 2px solid var(--bs-success) !important;
+  }
+  
+  .verification-error {
+    background: rgba(239, 68, 68, 0.2) !important;
+    border: 2px solid var(--bs-danger) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .verification-container { padding: 1.5rem 1rem; }
+  .verification-title { font-size: 2rem; }
+  .verification-success { padding: 2rem 1.5rem !important; margin: 0 1rem; }
+}

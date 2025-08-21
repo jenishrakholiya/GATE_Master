@@ -1,5 +1,3 @@
-// File: frontend/src/components/Layout.js
-
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
@@ -7,10 +5,14 @@ import Footer from './Footer';
 
 const Layout = () => {
     return (
-        <div className="d-flex flex-column min-vh-100">
+        <div className="enhanced-layout">
             <Header />
-            <main className="flex-grow-1">
-                <Outlet /> {/* Child routes will be rendered here */}
+            <main className="enhanced-main">
+                <div className="main-content-wrapper">
+                    <div className="container-enhanced">
+                        <Outlet />
+                    </div>
+                </div>
             </main>
             <Footer />
         </div>

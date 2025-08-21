@@ -50,18 +50,14 @@ const ChallengeListPage = () => {
     return (
         <>
             <Container className="mt-4">
-                <div className="p-4 mb-4 bg-light rounded-3">
-                    <h2>Challenge Zone</h2>
-                    <p className="lead text-muted">Test your knowledge with full-length, timed mock exams that simulate the real GATE experience.</p>
-                </div>
                 <Row>
                     {challenges.map(challenge => (
                         <Col md={6} lg={4} key={challenge.id} className="mb-4">
-                            <Card className="h-100 shadow-sm">
+                            <Card className="challenge-card h-100 shadow-sm">
                                 <Card.Body className="d-flex flex-column">
                                     <Card.Title as="h4">{challenge.title}</Card.Title>
                                     <Card.Text className="text-muted flex-grow-1">{challenge.description}</Card.Text>
-                                    <Button variant="success" onClick={() => handleStartClick(challenge)}>Start Challenge</Button>
+                                    <Button className="start-challenge-btn" onClick={() => handleStartClick(challenge)}>Start Challenge</Button>
                                 </Card.Body>
                             </Card>
                         </Col>

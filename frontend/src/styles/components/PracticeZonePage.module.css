@@ -1,0 +1,387 @@
+/* ====================================================================
+GATE Master - Enhanced Practice Zone Page Styles
+==================================================================== */
+
+/* Practice Zone Container */
+.practice-zone-container {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Header Section */
+.practice-header {
+  background: linear-gradient(135deg, 
+    rgba(26, 35, 126, 0.05) 0%, 
+    rgba(92, 107, 192, 0.05) 100%);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  margin-bottom: 3rem;
+  border: 1px solid var(--bs-border-color);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.practice-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 30% 70%, rgba(26, 35, 126, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(92, 107, 192, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.practice-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--bs-body-color);
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.practice-subtitle {
+  font-size: 1.2rem;
+  color: var(--bs-secondary-color);
+  margin: 0;
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* Subject Cards Grid */
+.subjects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Subject Card Enhancement */
+.subject-card {
+  border: none !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08) !important;
+  transition: all 0.4s ease !important;
+  overflow: hidden;
+  height: 100% !important;
+  background: var(--bs-card-bg) !important;
+  position: relative;
+  animation: slideInUp 0.6s ease-out;
+}
+
+.subject-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--bs-primary), var(--bs-secondary));
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.subject-card:hover::before {
+  transform: scaleX(1);
+}
+
+.subject-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+}
+
+.subject-card.card-hover {
+  cursor: pointer;
+}
+
+/* Subject Card Body */
+.subject-card-body {
+  padding: 2.5rem 2rem !important;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+/* Subject Icon */
+.subject-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem auto;
+  background: linear-gradient(135deg, var(--bs-primary), var(--bs-secondary));
+  color: white;
+  font-size: 2rem;
+  transition: all 0.4s ease;
+  box-shadow: 0 8px 25px rgba(26, 35, 126, 0.2);
+}
+
+.subject-card:hover .subject-icon {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 12px 35px rgba(26, 35, 126, 0.3);
+}
+
+/* Subject Title */
+.subject-title {
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  color: var(--bs-body-color) !important;
+  margin-bottom: 1.5rem !important;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Subject Button */
+.subject-start-btn {
+  background: linear-gradient(135deg, var(--bs-primary), var(--bs-secondary)) !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 1rem 2rem !important;
+  border-radius: 50px !important;
+  transition: all 0.4s ease !important;
+  text-decoration: none !important;
+  margin-top: auto;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(26, 35, 126, 0.3);
+}
+
+.subject-start-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255,255,255,0.2), 
+    transparent);
+  transition: left 0.6s ease;
+}
+
+.subject-start-btn:hover::before {
+  left: 100%;
+}
+
+.subject-start-btn:hover {
+  background: linear-gradient(135deg, var(--bs-secondary), var(--bs-primary)) !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(26, 35, 126, 0.4);
+}
+
+.subject-start-btn:active {
+  transform: translateY(0);
+}
+
+/* Individual Subject Color Variations */
+.subject-card:nth-child(1) .subject-icon { background: linear-gradient(135deg, #ff6b6b, #ee5a52); }
+.subject-card:nth-child(2) .subject-icon { background: linear-gradient(135deg, #4ecdc4, #44a08d); }
+.subject-card:nth-child(3) .subject-icon { background: linear-gradient(135deg, #45b7d1, #96c93d); }
+.subject-card:nth-child(4) .subject-icon { background: linear-gradient(135deg, #f9ca24, #f0932b); }
+.subject-card:nth-child(5) .subject-icon { background: linear-gradient(135deg, #6c5ce7, #a29bfe); }
+.subject-card:nth-child(6) .subject-icon { background: linear-gradient(135deg, #fd79a8, #fdcb6e); }
+.subject-card:nth-child(7) .subject-icon { background: linear-gradient(135deg, #00b894, #55a3ff); }
+.subject-card:nth-child(8) .subject-icon { background: linear-gradient(135deg, #e17055, #fdcb6e); }
+.subject-card:nth-child(9) .subject-icon { background: linear-gradient(135deg, #0984e3, #74b9ff); }
+.subject-card:nth-child(10) .subject-icon { background: linear-gradient(135deg, #00cec9, #55efc4); }
+.subject-card:nth-child(11) .subject-icon { background: linear-gradient(135deg, #fd79a8, #e84393); }
+
+/* Quick Stats Section (if you want to add later) */
+.practice-stats {
+  background: var(--bs-card-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 15px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.practice-stats h4 {
+  color: var(--bs-primary);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--bs-primary);
+  display: block;
+}
+
+.stat-label {
+  color: var(--bs-secondary-color);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Staggered Animation for Cards */
+.subject-card:nth-child(1) { animation-delay: 0.1s; }
+.subject-card:nth-child(2) { animation-delay: 0.2s; }
+.subject-card:nth-child(3) { animation-delay: 0.3s; }
+.subject-card:nth-child(4) { animation-delay: 0.4s; }
+.subject-card:nth-child(5) { animation-delay: 0.5s; }
+.subject-card:nth-child(6) { animation-delay: 0.6s; }
+.subject-card:nth-child(7) { animation-delay: 0.7s; }
+.subject-card:nth-child(8) { animation-delay: 0.8s; }
+.subject-card:nth-child(9) { animation-delay: 0.9s; }
+.subject-card:nth-child(10) { animation-delay: 1.0s; }
+.subject-card:nth-child(11) { animation-delay: 1.1s; }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .practice-header {
+    padding: 2rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .practice-title {
+    font-size: 2rem;
+  }
+  
+  .practice-subtitle {
+    font-size: 1rem;
+  }
+  
+  .subjects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .subject-card-body {
+    padding: 2rem 1.5rem !important;
+  }
+  
+  .subject-title {
+    font-size: 1.1rem !important;
+  }
+  
+  .subject-start-btn {
+    padding: 0.875rem 1.5rem !important;
+  }
+  
+  .subject-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .subjects-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .subject-card-body {
+    padding: 1.5rem 1rem !important;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .practice-zone-container,
+  .subject-card {
+    animation: none;
+  }
+  
+  .subject-card:hover,
+  .subject-start-btn:hover {
+    transform: none;
+  }
+  
+  .practice-title::after {
+    animation: none;
+  }
+}
+
+/* Focus States for Accessibility */
+.subject-start-btn:focus {
+  outline: 3px solid rgba(26, 35, 126, 0.3);
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .practice-header::before,
+  .subject-card::before {
+    display: none;
+  }
+  
+  .subject-card {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .subjects-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .subject-card-body { padding: 2rem 1.5rem !important; }
+  .subject-icon { width: 60px; height: 60px; }
+}
+
+@media (max-width: 480px) {
+  .subjects-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .subject-card-body { padding: 1.5rem 1rem !important; }
+}

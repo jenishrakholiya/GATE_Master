@@ -3,7 +3,6 @@ import { Container, Row, Col, Card, Spinner, Alert, Button, ListGroup, Badge } f
 import { Link } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import AuthContext from '../context/AuthContext';
-import ThemeContext from '../context/ThemeContext';
 import { Bar, Line, Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, PointElement, LineElement, ArcElement } from 'chart.js';
 import { TrophyFill, StarFill, Bullseye, ArrowRightCircleFill } from 'react-bootstrap-icons';
@@ -21,7 +20,6 @@ const abbreviations = {
 
 const DashboardPage = () => {
     const { user } = useContext(AuthContext);
-    const { theme } = useContext(ThemeContext);
     const [analytics, setAnalytics] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -50,15 +48,22 @@ const DashboardPage = () => {
             ? analytics.subject_performance.reduce((max, p) => p.avg_accuracy > max.avg_accuracy ? p : max)
             : null;
 
-        const textColor = theme === 'light' ? '#212121' : '#e8eaf6';
-        const gridColor = theme === 'light' ? '#e0e0e0' : '#333333';
-        const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--bs-primary').trim();
-        const successColor = getComputedStyle(document.documentElement).getPropertyValue('--bs-success').trim();
+        // Fixed colors for light mode only
+        const textColor = '#212121';
+        const gridColor = '#e0e0e0';
+        const primaryColor = '#1a237e';
+        const successColor = '#52B788';
 
         const config = {
             barChartData: {
                 labels: analytics.subject_performance.map(p => abbreviations[p.subject_name] || p.subject_name),
-                datasets: [{ label: 'Average Accuracy (%)', data: analytics.subject_performance.map(p => p.avg_accuracy), backgroundColor: primaryColor + 'B3', borderColor: primaryColor, borderWidth: 1 }],
+                datasets: [{ 
+                    label: 'Average Accuracy (%)', 
+                    data: analytics.subject_performance.map(p => p.avg_accuracy), 
+                    backgroundColor: primaryColor + 'B3', 
+                    borderColor: primaryColor, 
+                    borderWidth: 1 
+                }],
             },
             barChartOptions: {
                 responsive: true,
@@ -67,12 +72,10 @@ const DashboardPage = () => {
                     title: { display: true, text: 'Performance by Subject', font: { size: 18 }, color: textColor },
                 },
                 scales: {
-                    // --- BAR CHART Y-AXIS LABEL ---
                     y: { 
                         beginAtZero: true, max: 100, grid: { color: gridColor }, ticks: { color: textColor },
                         title: { display: true, text: 'Average Accuracy (%)', color: textColor }
                     },
-                    // --- BAR CHART X-AXIS LABEL ---
                     x: { 
                         grid: { color: gridColor }, ticks: { color: textColor },
                         title: { display: true, text: 'Subjects', color: textColor }
@@ -81,7 +84,15 @@ const DashboardPage = () => {
             },
             lineChartData: {
                 labels: analytics.recent_activity.map(a => new Date(a.timestamp).toLocaleDateString()).reverse(),
-                datasets: [{ label: 'Quiz Accuracy (%)', data: analytics.recent_activity.map(a => a.total_marks > 0 ? (a.score / a.total_marks) * 100 : 0).reverse(), fill: true, borderColor: successColor, backgroundColor: successColor + '33', pointBackgroundColor: successColor, tension: 0.1 }]
+                datasets: [{ 
+                    label: 'Quiz Accuracy (%)', 
+                    data: analytics.recent_activity.map(a => a.total_marks > 0 ? (a.score / a.total_marks) * 100 : 0).reverse(), 
+                    fill: true, 
+                    borderColor: successColor, 
+                    backgroundColor: successColor + '33', 
+                    pointBackgroundColor: successColor, 
+                    tension: 0.1 
+                }]
             },
             lineChartOptions: {
                 responsive: true,
@@ -90,12 +101,10 @@ const DashboardPage = () => {
                     title: { display: true, text: 'Performance Trend (Last 10 Quizzes)', font: { size: 18 }, color: textColor },
                 },
                 scales: {
-                    // --- LINE CHART Y-AXIS LABEL ---
                     y: { 
                         beginAtZero: true, max: 100, grid: { color: gridColor }, ticks: { color: textColor },
                         title: { display: true, text: 'Quiz Accuracy (%)', color: textColor }
                     },
-                    // --- LINE CHART X-AXIS LABEL ---
                     x: { 
                         grid: { color: gridColor }, ticks: { color: textColor },
                         title: { display: true, text: 'Date', color: textColor }
@@ -104,9 +113,20 @@ const DashboardPage = () => {
             },
             doughnutData: {
                 labels: analytics.subject_performance.map(p => abbreviations[p.subject_name] || p.subject_name),
-                datasets: [{ data: analytics.subject_distribution.map(d => d.count), backgroundColor: ['#24263aff', '#5c6bc0', '#3B82F6', '#60A5FA', '#9fa8da', '#34D399', '#FBBF24', '#f57c00', '#42a5f5', '#ff7043', '#8d6e63'], borderWidth: 1, borderColor: theme === 'light' ? '#fff' : '#1e1e1e' }]
+                datasets: [{ 
+                    data: analytics.subject_distribution.map(d => d.count), 
+                    backgroundColor: ['#1a237e', '#5c6bc0', '#3B82F6', '#60A5FA', '#9fa8da', '#34D399', '#FBBF24', '#f57c00', '#42a5f5', '#ff7043', '#8d6e63'], 
+                    borderWidth: 1, 
+                    borderColor: '#fff'
+                }]
             },
-            doughnutOptions: { responsive: true, plugins: { legend: { display: true, position: 'right', labels: { color: textColor, boxWidth: 15 } }, title: { display: true, text: 'Practice Distribution', font: { size: 18 }, color: textColor } } },
+            doughnutOptions: { 
+                responsive: true, 
+                plugins: { 
+                    legend: { display: true, position: 'right', labels: { color: textColor, boxWidth: 15 } }, 
+                    title: { display: true, text: 'Practice Distribution', font: { size: 18 }, color: textColor } 
+                } 
+            },
             doughnutPlugins: [{
                 beforeDraw: function(chart) {
                     const {width, height, ctx} = chart;
@@ -125,7 +145,7 @@ const DashboardPage = () => {
             }]
         };
         return { focusSubject: focus, bestSubject: best, chartConfig: config };
-    }, [analytics, theme]);
+    }, [analytics]);
 
     if (loading || !analytics) {
         return <Container className="text-center mt-5"><Spinner animation="border" /><h3>Loading Your Dashboard...</h3></Container>;
@@ -143,7 +163,7 @@ const DashboardPage = () => {
                 </Col>
             </Row>
             
-            {/* StatCards Component (JSX unchanged) */}
+            {/* Stat Cards */}
             <Row className="mb-4">
                 <Col sm={6} lg={3} className="mb-3">
                     <Card className="shadow-sm h-100">
@@ -194,7 +214,7 @@ const DashboardPage = () => {
                 </Col>
             </Row>
 
-            {/* Main Analytics Grid (JSX unchanged) */}
+            {/* Main Analytics Grid */}
             <Row>
                 <Col lg={7} className="mb-4">
                     <Card className="shadow-sm h-100">

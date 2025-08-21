@@ -33,16 +33,9 @@ const LeaderboardPage = () => {
 
     return (
         <Container className="mt-4">
-            <div className="p-4 mb-4 bg-light rounded-3">
-                <h2><TrophyFill className="me-2" /> Leaderboard</h2>
-                <p className="lead text-muted">
-                    See how you rank against other aspirants based on your best performance in the Challenge Zone.
-                </p>
-            </div>
-
             {/* Card to show the current user's rank */}
             {user_rank ? (
-                <Card className="mb-4 shadow-sm bg-primary text-white">
+                <Card className="user-rank-card mb-4 shadow-sm text-white">
                     <Card.Body className="d-flex justify-content-around align-items-center">
                         <div className="text-center">
                             <h5 className="mb-0">Your Rank</h5>
@@ -62,9 +55,9 @@ const LeaderboardPage = () => {
             )}
 
             {/* Main leaderboard table */}
-            <Card className="shadow-sm">
+            <Card className="leaderboard-main-card shadow-sm">
                 <Card.Header as="h5">Top 100 Rankings</Card.Header>
-                <Table striped hover responsive>
+                <Table striped hover responsive className="leaderboard-table">
                     <thead>
                         <tr>
                             <th>Rank</th>
@@ -74,8 +67,8 @@ const LeaderboardPage = () => {
                     </thead>
                     <tbody>
                         {leaderboard.map(entry => (
-                            <tr key={entry.rank} className={user && entry.username === user.username ? 'table-info' : ''}>
-                                <td><h4><Badge bg={entry.rank <= 3 ? 'warning' : 'secondary'} pill>{entry.rank}</Badge></h4></td>
+                            <tr key={entry.rank} className={user && entry.username === user.username ? 'current-user-row' : ''}>
+                                <td><h4><Badge className={`rank-badge ${entry.rank === 1 ? 'rank-badge-gold' : entry.rank === 2 ? 'rank-badge-silver' : entry.rank === 3 ? 'rank-badge-bronze' : 'rank-badge-regular'}`} pill>{entry.rank}</Badge></h4></td>
                                 <td className="fw-bold">{entry.username}</td>
                                 <td className="fw-bold">{entry.score}</td>
                             </tr>

@@ -21,12 +21,6 @@ const subjects = [
 const PracticeZonePage = () => {
     return (
         <Container className="mt-4">
-            <div className="p-4 mb-4 bg-light rounded-3">
-                <h2>Practice Zone</h2>
-                <p className="lead text-muted">
-                    Select a subject to start a practice quiz. Each quiz consists of 20 randomly selected questions.
-                </p>
-            </div>
             <Row>
                 {subjects.map((subject) => (
                     <Col md={6} lg={4} key={subject.code} className="mb-4">

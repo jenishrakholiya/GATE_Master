@@ -1,0 +1,337 @@
+/* ====================================================================
+GATE Master - Enhanced Challenge Attempt Page Styles
+==================================================================== */
+
+/* Question Card Enhancement */
+.question-card {
+  border: none !important;
+  border-radius: 15px !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08) !important;
+  transition: all 0.3s ease !important;
+  background: var(--bs-card-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.question-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--bs-primary), var(--bs-secondary));
+}
+
+.question-card .card-header {
+  background: var(--bs-card-cap-bg) !important;
+  border-bottom: 1px solid var(--bs-border-color) !important;
+  padding: 1.25rem !important;
+  font-weight: 600;
+}
+
+.question-card .card-body {
+  padding: 2rem !important;
+  background: var(--bs-card-bg);
+}
+
+.question-card .card-footer {
+  background: var(--bs-card-cap-bg) !important;
+  border-top: 1px solid var(--bs-border-color) !important;
+  padding: 1.25rem !important;
+}
+
+/* Question Content */
+.question-content {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--bs-body-color);
+  margin-bottom: 1.5rem;
+}
+
+.question-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  margin: 1rem 0;
+}
+
+/* Enhanced Form Inputs */
+.form-check {
+  padding: 0.75rem 1rem !important;
+  margin-bottom: 0.75rem !important;
+  border: 2px solid var(--bs-border-color);
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  background: var(--bs-card-bg);
+}
+
+.form-check:hover {
+  border-color: var(--bs-secondary);
+  background: rgba(92, 107, 192, 0.05);
+  transform: translateX(3px);
+}
+
+.form-check-input:checked ~ .form-check-label {
+  color: var(--bs-primary);
+  font-weight: 600;
+}
+
+.form-check-input:checked {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.form-check-label {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--bs-body-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* NAT Input Enhancement */
+.nat-input {
+  border: 2px solid var(--bs-border-color) !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  background: var(--bs-card-bg);
+}
+
+.nat-input:focus {
+  border-color: var(--bs-primary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(26, 35, 126, 0.15) !important;
+  outline: 0 !important;
+}
+
+/* Control Buttons Enhancement */
+.control-btn {
+  border-radius: 8px !important;
+  padding: 0.75rem 1.25rem !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  border: none !important;
+}
+
+.control-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.btn-mark-review {
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  color: white !important;
+}
+
+.btn-clear-response {
+  background: transparent !important;
+  border: 2px solid var(--bs-danger) !important;
+  color: var(--bs-danger) !important;
+}
+
+.btn-clear-response:hover {
+  background: var(--bs-danger) !important;
+  color: white !important;
+}
+
+.btn-save-next {
+  background: linear-gradient(135deg, var(--bs-primary), var(--bs-secondary)) !important;
+  color: white !important;
+}
+
+.btn-submit-test {
+  background: linear-gradient(135deg, var(--bs-success), #66bb6a) !important;
+  color: white !important;
+}
+
+/* Question Palette Enhancement */
+.palette-card {
+  border: none !important;
+  border-radius: 15px !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08) !important;
+  background: var(--bs-card-bg);
+  position: sticky;
+  top: 20px;
+}
+
+.palette-card .card-header {
+  background: var(--bs-card-cap-bg) !important;
+  border-bottom: 1px solid var(--bs-border-color) !important;
+  font-weight: 600;
+  text-align: center;
+}
+
+.palette-card .card-body {
+  padding: 1.25rem !important;
+}
+
+.palette-card .card-footer {
+  background: var(--bs-card-cap-bg) !important;
+  border-top: 1px solid var(--bs-border-color) !important;
+  padding: 1rem !important;
+}
+
+/* Question Palette Buttons */
+.palette-btn {
+  width: 45px !important;
+  height: 45px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  margin: 0.25rem !important;
+  position: relative;
+}
+
+.palette-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.palette-btn.current-question {
+  border: 3px solid var(--bs-body-color) !important;
+  box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.3);
+}
+
+/* Status Color Enhancements */
+.btn-success {
+  background: linear-gradient(135deg, var(--bs-success), #66bb6a) !important;
+  border: none !important;
+}
+
+.btn-outline-danger {
+  border: 2px solid var(--bs-danger) !important;
+  color: var(--bs-danger) !important;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  border: none !important;
+  color: white !important;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--bs-primary), var(--bs-secondary)) !important;
+  border: none !important;
+}
+
+.btn-outline-secondary {
+  border: 2px solid var(--bs-border-color) !important;
+  color: var(--bs-secondary-color) !important;
+}
+
+/* Timer Enhancement */
+.timer-display {
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--bs-danger);
+  background: rgba(239, 68, 68, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin-left: 0.75rem;
+}
+
+/* Badge Enhancements */
+.badge {
+  font-size: 0.8rem !important;
+  padding: 0.5rem 0.75rem !important;
+  border-radius: 6px !important;
+}
+
+/* Modal Enhancements */
+.modal-content {
+  border: none !important;
+  border-radius: 15px !important;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15) !important;
+}
+
+.modal-header {
+  background: var(--bs-card-cap-bg) !important;
+  border-bottom: 1px solid var(--bs-border-color) !important;
+  border-radius: 15px 15px 0 0 !important;
+}
+
+.modal-body {
+  padding: 2rem !important;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.modal-footer {
+  background: var(--bs-card-cap-bg) !important;
+  border-top: 1px solid var(--bs-border-color) !important;
+  border-radius: 0 0 15px 15px !important;
+}
+
+/* Loading State */
+.challenge-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+}
+
+.challenge-loading .spinner-border {
+  width: 3rem;
+  height: 3rem;
+  border-color: var(--bs-primary) transparent var(--bs-primary) transparent;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .question-card .card-body {
+    padding: 1.5rem !important;
+  }
+  
+  .question-card .card-footer {
+    padding: 1rem !important;
+  }
+  
+  .control-btn {
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+  
+  .palette-btn {
+    width: 40px !important;
+    height: 40px !important;
+    margin: 0.2rem !important;
+  }
+  
+  .timer-display {
+    font-size: 1rem;
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+  
+  /* Stack buttons vertically on mobile */
+  .card-footer .float-end {
+    float: none !important;
+    margin-top: 1rem;
+  }
+  
+  .card-footer .float-end .btn {
+    width: 100%;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .question-card,
+  .palette-btn,
+  .control-btn {
+    transition: none !important;
+  }
+  
+  .question-card:hover,
+  .palette-btn:hover,
+  .control-btn:hover {
+    transform: none !important;
+  }
+}

@@ -1,0 +1,94 @@
+/* ====================================================================
+GATE Master - Enhanced Footer Styles 
+==================================================================== */
+
+/* Main Footer Enhancement */
+.enhanced-footer {
+  background: linear-gradient(135deg, var(--bs-primary) 0%, var(--bs-secondary) 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  margin-top: auto;
+  padding: 2rem 0 1rem 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Decorative Background Pattern */
+.enhanced-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Footer Content */
+.enhanced-footer-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Copyright Text Enhancement */
+.enhanced-copyright {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  font-weight: 400;
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.enhanced-copyright:hover {
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Brand Text in Footer */
+.footer-brand {
+  font-weight: 600;
+  color: #e8eaf6;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Decorative Elements */
+.footer-decoration {
+  display: inline-block;
+  margin: 0 10px;
+  color: rgba(255, 255, 255, 0.6);
+  animation: pulse 2s infinite;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 576px) {
+  .enhanced-footer {
+    padding: 1.5rem 0 1rem 0;
+  }
+  
+  .enhanced-copyright {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+}
+
+/* Animation for footer appearance */
+.footer-fade-in {
+  animation: slideInUp 0.8s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

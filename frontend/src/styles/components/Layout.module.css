@@ -1,0 +1,174 @@
+/* ====================================================================
+GATE Master - Enhanced Layout Styles
+==================================================================== */
+
+/* Main Layout Container */
+.enhanced-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bs-body-bg);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Background Pattern */
+.enhanced-layout::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(26, 35, 126, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(92, 107, 192, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(82, 183, 136, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Main Content Area Enhancement */
+.enhanced-main {
+  flex: 1;
+  position: relative;
+  padding: 0;
+  animation: fadeInUp 0.6s ease-out;
+  z-index: 1;
+}
+
+/* Content Container */
+.main-content-wrapper {
+  position: relative;
+  min-height: calc(100vh - 200px);
+}
+
+/* Responsive Container Enhancement */
+.container-enhanced {
+  animation: slideInRight 0.6s ease-out;
+}
+
+/* Page Transition Effects */
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.4s ease-out;
+}
+
+.page-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s ease-in;
+}
+
+/* Responsive Container Enhancement */
+.container-enhanced {
+  animation: slideInRight 0.6s ease-out;
+}
+
+/* Loading States */
+.layout-loading {
+  position: relative;
+}
+
+.layout-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(
+    90deg, 
+    transparent, 
+    var(--bs-primary), 
+    transparent
+  );
+  animation: loading-bar 2s infinite;
+}
+
+@keyframes loading-bar {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Scroll Enhancement */
+.enhanced-layout {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+.enhanced-layout::-webkit-scrollbar {
+  width: 8px;
+}
+
+.enhanced-layout::-webkit-scrollbar-track {
+  background: var(--bs-light);
+}
+
+.enhanced-layout::-webkit-scrollbar-thumb {
+  background: var(--bs-secondary);
+  border-radius: 4px;
+}
+
+.enhanced-layout::-webkit-scrollbar-thumb:hover {
+  background: var(--bs-primary);
+}
+
+/* Mobile Layout Adjustments */
+@media (max-width: 768px) {
+  .enhanced-main {
+    padding: 0;
+  }
+  
+  .main-content-wrapper {
+    min-height: calc(100vh - 160px);
+  }
+}
+
+/* Print Styles */
+@media print {
+  .enhanced-layout::before {
+    display: none;
+  }
+}
+
+/* Accessibility Enhancements */
+@media (prefers-reduced-motion: reduce) {
+  .enhanced-layout,
+  .enhanced-main,
+  .container-enhanced {
+    animation: none;
+  }
+  
+  .page-enter-active,
+  .page-exit-active {
+    transition: none;
+  }
+}
+
+/* Focus Management */
+.enhanced-layout:focus-within {
+  outline: none;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .enhanced-layout::before {
+    display: none;
+  }
+}
