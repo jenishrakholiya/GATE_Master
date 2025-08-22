@@ -5,6 +5,7 @@ from .models import (
     CustomUser, Question, QuizResult, NewsArticle, 
     Challenge, ChallengeAttempt, StudyMaterial
 )
+import re
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,12 +15,43 @@ class CustomUserSerializer(serializers.ModelSerializer):
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
     password2 = serializers.CharField(write_only=True, required=True, label="Confirm password")
+
     class Meta:
         model = CustomUser
         fields = ('username', 'email', 'password', 'password2')
+
+    def validate_username(self, value):
+        """
+        Check that the username is no longer than 10 characters.
+        """
+        if len(value) > 10:
+            raise serializers.ValidationError("Username must be 10 characters or less.")
+        return value
+
+    def validate_password(self, value):
+        """
+        Check the password for strength requirements.
+        - At least 8 characters
+        - At least one uppercase letter
+        - At least one lowercase letter
+        - At least one number
+        - At least one special character
+        """
+        if len(value) < 8:
+            raise serializers.ValidationError("Password must be at least 8 characters long.")
+        if not re.search(r'[A-Z]', value):
+            raise serializers.ValidationError("Password must contain at least one uppercase letter.")
+        if not re.search(r'[a-z]', value):
+            raise serializers.ValidationError("Password must contain at least one lowercase letter.")
+        if not re.search(r'[0-9]', value):
+            raise serializers.ValidationError("Password must contain at least one number.")
+        if not re.search(r'[\W_]', value): # \W matches any non-alphanumeric character
+            raise serializers.ValidationError("Password must contain at least one special character.")
+        return value
+
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
-            raise serializers.ValidationError({"password": "Password fields didn't match."})
+            raise serializers.ValidationError({"password2": "Passwords do not match."})
         return attrs
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):

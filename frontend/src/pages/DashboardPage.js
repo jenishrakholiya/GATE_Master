@@ -230,11 +230,6 @@ const DashboardPage = () => {
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col lg={12} className="mb-4">
-                    <Card className="shadow-sm h-100">
-                         <Card.Body><Line options={chartConfig.lineChartOptions} data={chartConfig.lineChartData} /></Card.Body>
-                    </Card>
-                </Col>
             </Row>
         </Container>
     );
