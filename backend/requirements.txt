@@ -1,12 +1,15 @@
 # File: backend/requirements.txt
-
-django~=5.0
-djangorestframework~=3.15
-djangorestframework-simplejwt~=5.3
-django-cors-headers~=4.3
-Pillow~=10.3
-requests~=2.31
-beautifulsoup4~=4.12
-lxml~=5.2
-python-dateutil~=2.9
-python-dotenv~=1.0
+django
+djangorestframework
+djangorestframework-simplejwt
+django-cors-headers
+Pillow
+requests
+beautifulsoup4
+lxml
+python-dateutil
+python-dotenv
+gunicorn
+dj-database-url
+psycopg2-binary
+whitenoise
